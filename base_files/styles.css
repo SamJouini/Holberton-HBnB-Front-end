@@ -1,18 +1,25 @@
 :root {
-    --primary: #1e3226;
-    --secondary: #76290b;
-    --accent-yellow: #ccb363;
-    --hover-yellow: #c27e35;
-    --background-cream: #fbedC3;
-    --text-dark: #1e3226;
-    --text-light: #fbedC3;
+    --primary: #00595d;
+    --primary-container: #0d8186;
+    --on-primary: #ffffff;
+    --on-primary-container: #ffffff;
+    --secondary: #436466;
+    --secondary-container: #c7eaec;
+    --on-secondary: #ffffff;
+    --on-secondary-container: #2d4e50;
+    --tertiary: #775a00;
+    --tertiary-container: #ecb92f;
+    --on-tertiary: #ffffff;
+    --on-tertiary-container: #402f00;
+    --surface: #eef1f1;
+    --on-surface: #2d3131;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 html {
@@ -20,8 +27,8 @@ html {
 }
 
 body {
-    background-color: var(--background-cream);
-    color: var(--text-dark);
+    background-color: var(--surface);
+    color: var(--on-surface);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -29,7 +36,7 @@ body {
 
 header {
     background-color: var(--primary);
-    color: var(--text-light);
+    color: var(--on-primary);
     padding: 1rem;
     display: flex;
     align-items: center;
@@ -41,33 +48,36 @@ header .logo {
 }
 
 nav a {
-    color: var(--accent-yellow);
+    color: var(--on-primary);
     text-decoration: none;
     margin-left: 1rem;
 }
 
 nav a:hover {
-    color: var(--hover-yellow);
+    color: var(--secondary-container);
 }
 
 main {
     padding: 2rem;
     flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 footer {
     background-color: var(--primary);
-    color: var(--text-light);
+    color: var(--on-primary);
     text-align: center;
     padding: 1rem;
     width: 100%;
 }
 
-.place-card, .review-card {
-    background-color: var(--text-light);
+.place-card, .review-card, .add-review {
+    background-color: var(--secondary-container);
     margin: 20px;
-    padding: 10px;
-    border: 1px solid var(--accent-yellow);
+    padding: 20px;
+    border: 1px solid var(--secondary);
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -80,27 +90,27 @@ footer {
 .place-card h2, .place-details h1 {
     margin-top: 10px;
     font-size: 1.5rem;
-    color: var(--secondary);
 }
 
 .place-card p, .place-details p {
     margin: 10px 0;
-    color: var(--text-dark);
 }
 
-.details-button, .add-review {
-    background-color: var(--secondary);
-    color: var(--text-light);
+button, .details-button {
+    background-color: var(--tertiary-container);
+    color: var(--on-tertiary-container);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
     display: inline-block;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.details-button:hover, .add-review:hover {
-    background-color: var(--hover-yellow);
+.details-button:hover, button:hover {
+    background-color: var(--tertiary);
+    color: var(--on-tertiary);
 }
 
 .place-details {
@@ -119,24 +129,4 @@ footer {
 .add-review .form {
     display: flex;
     flex-direction: column;
-}
-
-.add-review .form textarea {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid var(--accent-yellow);
-    border-radius: 5px;
-}
-
-.add-review .form button {
-    background-color: var(--accent-yellow);
-    color: var(--text-dark);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.add-review .form button:hover {
-    background-color: var(--hover-yellow);
 }
