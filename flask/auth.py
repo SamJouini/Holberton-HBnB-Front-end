@@ -15,7 +15,7 @@ def login():
         return {"access_token": token}
 
 
-    abort(401, "Utilisateur inconnu")
+    return "Utilisateur inconnu", 401
     """authentification de l'utilisateur = vérifier login + mdp existe
     construire la clé"""
 

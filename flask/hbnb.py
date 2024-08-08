@@ -16,4 +16,4 @@ app.register_blueprint(auth)
 @app.route('/', defaults={'page': 'index'})
 @app.route('/<page>.html')
 def show(page):
-    return app.send_static_file(f'{page}.html')
+    return app.send_static_file(f'pages/{page}.html')

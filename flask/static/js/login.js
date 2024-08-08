@@ -19,6 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    const token = checkAuthentication();
+    const logoutLink = document.getElementById('logout-link');
+    if (logoutLink) {
+        if (token) {
+            logoutLink.style.display = 'block';
+            logoutLink.addEventListener('click', () => {
+                logoutUser();
+            });
+        } else {
+            logoutLink.style.display = 'none';
+        }
+    };
 });
 
 async function loginUser(email, password) {
@@ -34,7 +47,8 @@ async function loginUser(email, password) {
         document.cookie = `token=${data.access_token}; path=/`;
         window.location.href = 'index.html';
     } else {
-        throw new Error('ERROR');
+        const message = await response.text();
+        throw new Error(message);
     }
 }
 
@@ -70,16 +84,3 @@ function logoutUser() {
     document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     window.location.href = 'login.html';
 }
-    const token = checkAuthentication();
-    const logoutLink = document.getElementById('logout-link');
-    if (logoutLink) {
-        if (token) {
-            logoutLink.style.display = 'block';
-            logoutLink.addEventListener('click', () => {
-                logoutUser();
-            });
-        } else {
-            logoutLink.style.display = 'none';
-        }
-    };
-
