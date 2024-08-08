@@ -19,19 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    const token = checkAuthentication();
-    const logoutLink = document.getElementById('logout-link');
-    if (logoutLink) {
-        if (token) {
-            logoutLink.style.display = 'block';
-            logoutLink.addEventListener('click', () => {
-                logoutUser();
-            });
-        } else {
-            logoutLink.style.display = 'none';
-        }
-    };
 });
 
 async function loginUser(email, password) {
@@ -50,37 +37,4 @@ async function loginUser(email, password) {
         const message = await response.text();
         throw new Error(message);
     }
-}
-
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
-}
-
-function checkAuthentication() {
-    const token = getCookie('token');
-    const loginLink = document.getElementById('login-link');
-    const logoutLink = document.getElementById('logout-link');
-
-    if (loginLink) {
-        if (!token) {
-            loginLink.style.display = 'block';
-            if (logoutLink) {
-                logoutLink.style.display = 'none';
-            }
-        } else {
-            loginLink.style.display = 'none';
-            if (logoutLink) {
-                logoutLink.style.display = 'block';
-            }
-        }
-    }
-    return token;
-}
-
-function logoutUser() {
-    document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    window.location.href = 'login.html';
 }

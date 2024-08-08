@@ -1,7 +1,8 @@
-from flask import Blueprint, request, abort
+from flask import Blueprint, request, current_app
+import jwt
+
 
 auth = Blueprint('auth', __name__)
-
 
 @auth.route("/login", methods=['POST'])
 def login():
@@ -11,7 +12,7 @@ def login():
 
     if user_id is not None:
         payload =  {"user_id": str(user_id)}
-        token = jwt.encode(payload, app.config["SECRET_KEY"])
+        token = jwt.encode(payload, current_app.config["SECRET_KEY"])
         return {"access_token": token}
 
 

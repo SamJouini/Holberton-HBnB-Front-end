@@ -1,6 +1,5 @@
 from flask import Flask, request
 from werkzeug.exceptions import abort
-import jwt
 import os
 
 app = Flask(__name__)
