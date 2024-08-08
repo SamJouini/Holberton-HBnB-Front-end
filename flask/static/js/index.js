@@ -8,6 +8,30 @@ document.addEventListener('DOMContentLoaded', () => {
             list.appendChild(card);
         });
     });
+
+    document.getElementById('country-filter').addEventListener('change', (event) => {
+        // Get the selected country value
+        let country = event.target.value;
+        // Iterate over the places and show/hide them based on the selected country
+        let list = document.getElementById("places-list");
+
+        if (country) {
+            for (let card of list.children) {
+                if (card.dataset.country == country)
+                {
+                    card.style.display = "block";
+                }
+                else
+                {
+                    card.style.display = "none";
+                }
+            }
+        } else {
+            for (let card of list.children) {
+                card.style.display = "block";
+            }
+        }
+    });
 });
 
 async function getPlaces() {
@@ -44,7 +68,7 @@ function createPlaceCardFromJSON(place) {
     //     "price_per_night": 100
     // }
 
-    // <div class="place-card">
+    // <div class="place-card" data-country="Country">
     //     <img src="place1.jpg" alt="Place 1" class="place-image">
     //     <h2>Place Name</h2>
     //     <p>$100 per night</p>
@@ -53,6 +77,7 @@ function createPlaceCardFromJSON(place) {
     // </div>
     let card = document.createElement("div");
     card.className = "place-card";
+    card.dataset.country = place["country_code"];
 
     let img = document.createElement("img");
     img.src = `${place.id}.jpg`;
