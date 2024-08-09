@@ -1,14 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
     const token = getCookie('token');
-    getPlaceInfos(token)
-        .then(populatePlace);
+    if (document.getElementById("place-details")) {
+        getPlaceInfos(token)
+            .then(populatePlace);
+    }
     
     let addReviewSection = document.getElementById("add-review");
-    if (token) {
-        addReviewSection.style.display = "block";
+    if (addReviewSection) {
+        if (token) {
+            addReviewSection.style.display = "block";
+    
+        }
+        else {
+            addReviewSection.style.display = "none";
+        }
     }
-    else {
-        addReviewSection.style.display = "none";
+
+    const reviewForm = document.getElementById('review-form');
+    if (reviewForm) {
+        reviewForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            try {
+                await addReview();
+            } catch (error) {
+                const errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.textContent = "Login failed: " + error.message;
+                    errorMessage.style.display = 'block';
+                }
+            }
+        });
     }
 });
 
@@ -84,4 +106,48 @@ function populatePlace(place) {
         amenities.appendChild(item);
     }
     div.appendChild(amenities);
+
+    let reviews = document.getElementById("reviews");
+    for (let review of place.reviews) {
+        let card = document.createElement("div");
+        card.className = "review-card";
+        reviews.appendChild(card);
+
+        let comment = document.createElement("p");
+        comment.appendChild(document.createTextNode(`Comment: ${review.comment}`));
+        card.appendChild(comment);
+
+        let user = document.createElement("p");
+        user.appendChild(document.createTextNode(`User: ${review["user_name"]}`));
+        card.appendChild(user);
+
+        let rating = document.createElement("p");
+        rating.appendChild(document.createTextNode(`Rating: ${review.rating}/5`));
+        card.appendChild(rating);
+    }
+}
+
+async function addReview() {
+    const review = document.getElementById('review-text');
+    const rating = document.getElementById('review-rating');
+
+    let place_id = getPlaceIdFromURL();
+    let token = getCookie("token");
+    const response = await fetch(`/places/${place_id}/reviews`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ "review": review.value, "rating": rating.value})
+    });
+    if (response.ok) {
+        review.value = null;
+        rating.value = null;
+        alert("Your review has been saved")
+    } else {
+        const message = await response.text();
+        alert(message);
+    }
+
 }

@@ -25,15 +25,13 @@
 
         <section id="reviews">
             <h2>Reviews</h2>
-            <div class="review-card">
-                <p>Comment: Great place to stay!</p>
-                <p>User: John Doe</p>
-                <p>Rating: 5/5</p>
-            </div>
         </section>
         <section id="add-review">
             <h2>Add a Review</h2>
             <form id="review-form">
+                <label for="review-rating">Rating:</label>
+                <input id="review-rating" type="number" min="0" max="5" required/>
+
                 <label for="review-text">Review:</label>
                 <textarea id="review-text" name="review-text" required></textarea>
                 

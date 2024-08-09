@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Add Review - HBnB Clone</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="icon" href="static/img/icon.png" type="image/x-icon">
+    <script src="static/js/auth.js"></script>
+    <script>
+        if (!getCookie("token")) {
+            window.location.href = "/";
+        }
+    </script>
+    <script src="static/js/place.js"></script>
+</head>
+<body>
+    <header>
+        <img src="static/img/logo.png" alt="AirBnB Clone Logo" class="logo">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html" id="login-link" class="login-button">Login</a>
+            <a href="/" id="logout-link" class="login-button">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="add-review">
+            <h2>Add a Review</h2>
+            <form id="review-form" class="form">
+                <fieldset>
+                    <legend>Write your review</legend>
+                    <div class="form-group">
+                        <label for="review-rating">Rating:</label>
+                        <input id="review-rating" type="number" min="0" max="5" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-text">Review:</label>
+                        <textarea id="review-text" name="review-text" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Submit</button>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 HBnB Clone. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
