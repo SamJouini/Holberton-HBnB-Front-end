@@ -86,7 +86,10 @@ function createPlaceCardFromJSON(place) {
     card.appendChild(img);
 
     let title = document.createElement("h2");
-    title.appendChild(document.createTextNode(place.description));
+    let link = document.createElement("a");
+    link.href = `/place.html?id=${place.id}`;
+    link.appendChild(document.createTextNode(place.description));
+    title.appendChild(link);
     card.appendChild(title);
 
     let price = document.createElement("p");
